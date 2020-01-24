@@ -43,11 +43,7 @@ public class FxCalculator {
 			while ((input = scanner.nextLine()) != null && !input.equals("quit")) {
 				// asynchronous computation so as not to block the UI thread.
 				final String finalInput = input;
-				executor.submit(new Runnable() {
-					public void run() {
-						rateComputationEngine.convertCurrencyRate(finalInput);
-					}
-				});
+				executor.submit(() -> rateComputationEngine.convertCurrencyRate(finalInput));
 			}
 			executor.shutdownNow();
 		}

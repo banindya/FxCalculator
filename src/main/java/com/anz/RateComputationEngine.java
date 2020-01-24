@@ -25,10 +25,10 @@ public class RateComputationEngine {
 	
 
 	private void loadRates() 
-			throws FileNotFoundException, JSONException {
+			throws  JSONException {
 		loadDirectFeedRates();
 		getInvertedRates();
-		getCrossRates();
+		populateRates();
 	}
 	
 
@@ -53,12 +53,12 @@ public class RateComputationEngine {
 	}
 	
 
-	private void getCrossRates() {
+	private void populateRates() {
 		CurrencyRepo[] currencies = CurrencyRepo.values();
-		for(int i=0; i<currencies.length; i++) {
-	        for(int j=0; j<currencies.length; j++) {
-	        	getRate(currencies[i], currencies[j]);
-	        }
+		for (CurrencyRepo base:currencies) {
+			for (CurrencyRepo term: currencies) {
+				getRate(base, term);
+			}
 		}
 	}
 	
